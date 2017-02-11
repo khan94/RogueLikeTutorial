@@ -35,8 +35,8 @@ public class BoardManager: MonoBehaviour {
 	void InitialiseList(){
 		gridPositions.Clear();
 
-		for (int x = 1; i < columns - 1; i++) {
-			for (int y = 1; j < rows - 1; j++) {
+		for (int x = 1; x < columns - 1; x++) {
+			for (int y = 1; y < rows - 1; y++) {
 				gridPositions.Add(new Vector3(x, y, 0f));
 			}
 		}
@@ -74,13 +74,13 @@ public class BoardManager: MonoBehaviour {
 		}
 	}
 
-	void SetupScene(int level){
+	public void SetupScene(int level){
 		BoardSetup();
 		InitialiseList();
 		LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
 		LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
-		int enemyCount = (int)Mathf.Log (level, 2f);
+		int enemyCount = (int) Mathf.Log (level, 2f);
 		LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
-		Instantiate (exit, Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
+		Instantiate (exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
 	}
 }
