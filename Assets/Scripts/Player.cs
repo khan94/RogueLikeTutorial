@@ -17,20 +17,32 @@ public class Player : MovingObject {
 	protected override void Start () {
 		
 		animator = GetComponent<Animator> ();
-
-		food = GameManager.instance.playerFoodPoints;
-
+		Debug.Log ("food value is: " + food);
+		if (GameManager.instance != null) {
+			Debug.Log ("food value is: " + food);
+			if (GameManager.instance.playerFoodPoints != 0)
+				food = GameManager.instance.playerFoodPoints;
+			else {
+				food = 100;
+				Debug.Log ("Food Value manually assigned");
+			}
+		}
+		// for now, the code above is going cra, cuz GameManager.instance is created after Player, so we dont assign food value
+		// thats why we do it here
+		food = 100;
 		base.Start ();
 	}
 
 	private void OnDisable(){
-		GameManager.instance.playerFoodPoints = food;
+		if(GameManager.instance != null)
+			GameManager.instance.playerFoodPoints = food;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!GameManager.instance.playersTurn)
-			return;
+		if (GameManager.instance != null)
+			if (!GameManager.instance.playersTurn)
+				return;
 		int horizontal = 0;
 		int vertical = 0;
 		horizontal = (int) (Input.GetAxisRaw ("Horizontal"));
@@ -50,6 +62,10 @@ public class Player : MovingObject {
 		base.AttemptMove <T> (xDir, yDir);
 
 		RaycastHit2D hit;
+		if (Move (xDir, yDir, out hit)) {
+			
+		}
+
 
 		CheckIfGameOver ();
 
@@ -83,9 +99,9 @@ public class Player : MovingObject {
 	}
 
 	private void CheckIfGameOver(){
-		if (food <= 0) {
+		Debug.Log ("check: food is: " + food);
+		if (food <= 0)
 			GameManager.instance.GameOver ();
-		}
 	}
 	public void LoseFood(int loss){
 		animator.SetTrigger("playerHit");

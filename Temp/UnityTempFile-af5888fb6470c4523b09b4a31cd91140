@@ -89,6 +89,7 @@
 'Assets/Completed/Scripts/SoundManager.cs'
 'Assets/Completed/Scripts/Wall.cs'
 'Assets/Scripts/BoardManager.cs'
+'Assets/Scripts/Enemy.cs'
 'Assets/Scripts/GameManager.cs'
 'Assets/Scripts/Loader.cs'
 'Assets/Scripts/MovingObject.cs'
